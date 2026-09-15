@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(180deg, #fdf0f3 0%, #fff8f0 18%, #fbf3fa 45%, #fff8f0 72%, #f7e9f2 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #f0afc8;
+  color: #4a3347;
+}
+
+/* thin, soft scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #f0afc8;
+  border-radius: 999px;
+  border: 2px solid #fff8f0;
+}
+
+/* subtle paper grain overlay, used on card surfaces */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: theme("backgroundImage.grain");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* deckle / torn paper edge, layered radial gradients along top & bottom */
+.torn-edge-top {
+  mask-image: radial-gradient(circle at 8px 0, transparent 7px, black 7.5px);
+  -webkit-mask-image: radial-gradient(circle at 8px 0, transparent 7px, black 7.5px);
+  mask-size: 16px 16px;
+  -webkit-mask-size: 16px 16px;
+  mask-repeat: repeat-x;
+  -webkit-mask-repeat: repeat-x;
+}
+
+.washi-tape {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.35) 4px,
+    rgba(255, 255, 255, 0.15) 4px,
+    rgba(255, 255, 255, 0.15) 8px
+  );
+}
+
+/* scroll-reveal helper: elements start hidden, JS toggles .reveal-visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-shadow-soft {
+  text-shadow: 0 2px 18px rgba(232, 135, 154, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
