@@ -10,6 +10,7 @@ export default function Hero() {
 
   const handleOpen = () => {
     setOpening(true);
+     window.dispatchEvent(new Event("start-music"));
     const target = document.getElementById("letter");
     window.setTimeout(() => {
       target?.scrollIntoView({ behavior: "smooth", block: "start" });

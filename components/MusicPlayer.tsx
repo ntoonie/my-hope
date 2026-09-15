@@ -10,10 +10,25 @@ export default function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
 
-   useEffect(() => {
+useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = VOLUME;
     }
+  }, []);
+
+  useEffect(() => {
+    const startMusic = async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      try {
+        await audio.play();
+        setPlaying(true);
+      } catch {
+        setUnavailable(true);
+      }
+    };
+    window.addEventListener("start-music", startMusic);
+    return () => window.removeEventListener("start-music", startMusic);
   }, []);
 
   const toggle = async () => {
